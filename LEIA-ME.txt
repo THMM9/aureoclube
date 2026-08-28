@@ -1,0 +1,12 @@
+ÁUREO CLUBE — PWA v1.0
+
+Envie para a RAIZ do repositório GitHub:
+- index.html
+- manifest.webmanifest
+- service-worker.js
+- icon-192.png
+- icon-512.png
+
+O carrinho, a indicação recuperável e a indicação compartilhável ficam salvos no navegador.
+
+WhatsApp: o index.html está configurado para abrir o WhatsApp com a mensagem pronta e permitir escolher o contato. Para abrir diretamente a conversa da loja, preencha AUREO_WHATSAPP_NUMBER no código com DDI+DDD+número, somente dígitos.
