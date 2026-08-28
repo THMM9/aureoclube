@@ -1,7 +1,7 @@
 {
-  "name": "Áureo Clube — Consultoria de Perfumes",
+  "name": "Áureo Clube — Perfumes e Consultoria Olfativa",
   "short_name": "Áureo Clube",
-  "description": "Catálogo e consultoria digital para descobrir perfumes compatíveis com o seu perfil.",
+  "description": "Catálogo e consultoria olfativa da Áureo Clube, sem exibição de preços.",
   "id": "./",
   "start_url": "./",
   "scope": "./",

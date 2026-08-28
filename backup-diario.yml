@@ -1,0 +1,47 @@
+name: Backup diário do Áureo Clube
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório com histórico completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar backup restaurável
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _backup
+          DATE="$(date -u +'%Y-%m-%d')"
+          echo "BACKUP_DATE=$DATE" >> "$GITHUB_ENV"
+          git bundle create "_backup/aureoclube-${DATE}.bundle" --all
+          tar --exclude='.git' --exclude='_backup' -czf "_backup/aureoclube-arquivos-${DATE}.tar.gz" .
+          cat > "_backup/LEIA-ME-${DATE}.txt" <<EOF
+          Backup automático do Áureo Clube
+          Data UTC: ${DATE}
+
+          aureoclube-${DATE}.bundle:
+          contém o histórico Git restaurável.
+
+          aureoclube-arquivos-${DATE}.tar.gz:
+          contém uma cópia dos arquivos publicados.
+          EOF
+
+      - name: Armazenar backup por 30 dias
+        uses: actions/upload-artifact@v4
+        with:
+          name: aureoclube-backup-${{ env.BACKUP_DATE }}
+          path: _backup/
+          retention-days: 30
+          if-no-files-found: error
+          compression-level: 6
